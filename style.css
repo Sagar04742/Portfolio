@@ -371,109 +371,37 @@ body {
   margin-left: 12px;
 }
 
-/* === Responsiveness === */
-@media (max-width: 1000px) {
-  .project-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 700px) {
-  .nav-list {
-    position: fixed;
-    right: 0;
-    top: 64px;
-    background: linear-gradient(
-      180deg,
-      rgba(11, 15, 20, 0.96),
-      rgba(11, 15, 20, 0.98)
-    );
-    height: 100vh;
-    width: 260px;
-    flex-direction: column;
-    padding: 18px;
-    transform: translateX(100%);
-    transition: transform 260ms;
-  }
-  .nav-list.open {
-    transform: translateX(0);
-  }
-  .nav-toggle {
-    display: block;
-    margin-left: auto;
-  }
-  .nav-actions {
-    display: none;
-  }
-  .project-grid {
-    grid-template-columns: 1fr;
-  }
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
-  .hero-inner {
-    align-items: flex-start;
-  }
-}
-
-/* subtle entrance animations */
-[data-animate] {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity var(--transition), transform var(--transition);
-}
-[data-animate].in-view {
-  opacity: 1;
-  transform: none;
-}
 /* --- Media Queries for Responsive Design --- */
 
 /* 1. Large Tablets and Small Desktops (max-width: 992px) */
-/* This is often a good breakpoint to adjust from a wide desktop layout. */
 @media (max-width: 992px) {
   .container {
-    /* Reduce side padding for slightly smaller screens */
     padding: 0 1.5rem;
   }
 
   /* --- Navigation Bar Adjustments --- */
   .nav {
-    /* On smaller screens, the nav list will be hidden and toggled by JavaScript (which is already set up) */
-    /* Make sure the "Download Resume" button is hidden on small screens to prioritize the menu toggle */
     gap: 1rem;
   }
 
   .nav-actions {
-    /* Hide resume button on smaller screens to save space */
     display: none;
   }
 
   /* --- Hero Section Adjustments --- */
   .hero-inner {
-    /* Change the layout from row to column to stack the text and image */
     flex-direction: column;
     text-align: center;
-    padding-top: 5rem; /* Add more space below the header */
+    padding-top: 5rem;
   }
 
   .hero-text,
   .hero-media {
-    /* Make sure both sections take full width */
     width: 100%;
     max-width: none;
   }
 
   .hero-media {
-    /* Move the image below the text and center it */
     order: 1;
     margin-top: 2rem;
   }
@@ -483,15 +411,13 @@ body {
   }
 
   .hero-ctas {
-    /* Center the CTA buttons */
     justify-content: center;
   }
 
   .hero-meta {
-    /* Stack the meta list items */
     text-align: left;
     padding-top: 1rem;
-    display: block; /* Change from flex/inline to block */
+    display: block;
   }
 
   .hero-meta li {
@@ -501,26 +427,24 @@ body {
 
   /* --- About Section Adjustments --- */
   .about-grid {
-    /* Change the grid from two columns to one column */
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
   .about-stats {
-    /* Stack the cards on top of each other */
     display: flex;
     flex-direction: column;
   }
 
-  /* --- Projects Section Adjustments --- */
-  .project-grid {
-    /* Change the project grid to a single column for easier reading */
+  /* NEW: Force Projects and Certifications to a single column earlier */
+  .project-grid,
+  .cert-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
 /* 2. Mobile Phones (max-width: 600px) */
-/* This is the breakpoint for typical phone layouts */
 @media (max-width: 600px) {
   /* --- Base Styling Adjustments --- */
   h1 {
@@ -537,15 +461,12 @@ body {
 
   /* --- Navigation Bar Adjustments --- */
   .nav-list {
-    /* This is crucial for the mobile hamburger menu: 
-           It makes the nav list take up the full screen when open. */
     position: absolute;
-    top: 100%; /* Position right below the header */
+    top: 100%;
     left: 0;
     right: 0;
-    background-color: var(--nav-bg-color, #fff); /* Use your theme color */
+    background-color: var(--nav-bg-color, #fff);
     flex-direction: column;
-    /* Initially hidden. Your JavaScript should add an 'active' class to show it. */
     display: none;
     padding: 1rem 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -564,7 +485,7 @@ body {
   }
 
   .nav-toggle {
-    display: block; /* Ensure the hamburger button is visible on mobile */
+    display: block;
   }
 
   /* --- Hero Section Adjustments (minor tweaks) --- */
@@ -575,7 +496,7 @@ body {
   }
 
   .hero-ctas {
-    flex-direction: column; /* Stack the CTA buttons */
+    flex-direction: column;
     gap: 0.5rem;
   }
 
@@ -584,32 +505,40 @@ body {
     text-align: center;
   }
 
-  /* --- Content Grid Adjustments --- */
+  /* --- Content Grid Adjustments (Skills and Contact remain single column) --- */
   .skills-grid,
-  .cert-grid,
   .contact-grid {
-    /* Change multi-column sections to a single column */
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
+  /* --- Projects Card Specific Styling --- */
+  .project-card {
+    /* Ensure the project card media (image) and body are stacked */
+    flex-direction: column;
+  }
+
+  .project-media img {
+    /* Make the project image take full width */
+    width: 100%;
+    height: auto;
+  }
+
   /* --- Experience (Timeline) Adjustments --- */
   .timeline-item {
-    /* Adjust the timeline layout for smaller screens */
-    padding-left: 1.5rem; /* Reduce the space for the timeline line */
+    padding-left: 1.5rem;
   }
 
   .timeline-date {
-    /* Position the date above the content or align it clearly */
     margin-bottom: 0.5rem;
   }
 
   .timeline:before {
-    left: 10px; /* Adjust the position of the main timeline line */
+    left: 10px;
   }
 
   .timeline-item:before {
-    left: 10px; /* Adjust the position of the dot on the timeline */
+    left: 10px;
   }
 
   /* --- Footer Adjustments --- */
