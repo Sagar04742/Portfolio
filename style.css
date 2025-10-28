@@ -408,6 +408,7 @@ body {
 
   .hero-text {
     order: 2;
+    padding:20px;
   }
 
   .hero-ctas {
