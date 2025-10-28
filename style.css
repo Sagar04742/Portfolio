@@ -352,7 +352,6 @@ body {
   border-radius: 10px;
 }
 
-
 /* === FOOTER === */
 .site-footer {
   padding: 24px 0;
@@ -435,4 +434,192 @@ body {
 [data-animate].in-view {
   opacity: 1;
   transform: none;
+}
+/* --- Media Queries for Responsive Design --- */
+
+/* 1. Large Tablets and Small Desktops (max-width: 992px) */
+/* This is often a good breakpoint to adjust from a wide desktop layout. */
+@media (max-width: 992px) {
+  .container {
+    /* Reduce side padding for slightly smaller screens */
+    padding: 0 1.5rem;
+  }
+
+  /* --- Navigation Bar Adjustments --- */
+  .nav {
+    /* On smaller screens, the nav list will be hidden and toggled by JavaScript (which is already set up) */
+    /* Make sure the "Download Resume" button is hidden on small screens to prioritize the menu toggle */
+    gap: 1rem;
+  }
+
+  .nav-actions {
+    /* Hide resume button on smaller screens to save space */
+    display: none;
+  }
+
+  /* --- Hero Section Adjustments --- */
+  .hero-inner {
+    /* Change the layout from row to column to stack the text and image */
+    flex-direction: column;
+    text-align: center;
+    padding-top: 5rem; /* Add more space below the header */
+  }
+
+  .hero-text,
+  .hero-media {
+    /* Make sure both sections take full width */
+    width: 100%;
+    max-width: none;
+  }
+
+  .hero-media {
+    /* Move the image below the text and center it */
+    order: 1;
+    margin-top: 2rem;
+  }
+
+  .hero-text {
+    order: 2;
+  }
+
+  .hero-ctas {
+    /* Center the CTA buttons */
+    justify-content: center;
+  }
+
+  .hero-meta {
+    /* Stack the meta list items */
+    text-align: left;
+    padding-top: 1rem;
+    display: block; /* Change from flex/inline to block */
+  }
+
+  .hero-meta li {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* --- About Section Adjustments --- */
+  .about-grid {
+    /* Change the grid from two columns to one column */
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-stats {
+    /* Stack the cards on top of each other */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* --- Projects Section Adjustments --- */
+  .project-grid {
+    /* Change the project grid to a single column for easier reading */
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 2. Mobile Phones (max-width: 600px) */
+/* This is the breakpoint for typical phone layouts */
+@media (max-width: 600px) {
+  /* --- Base Styling Adjustments --- */
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  /* --- Navigation Bar Adjustments --- */
+  .nav-list {
+    /* This is crucial for the mobile hamburger menu: 
+           It makes the nav list take up the full screen when open. */
+    position: absolute;
+    top: 100%; /* Position right below the header */
+    left: 0;
+    right: 0;
+    background-color: var(--nav-bg-color, #fff); /* Use your theme color */
+    flex-direction: column;
+    /* Initially hidden. Your JavaScript should add an 'active' class to show it. */
+    display: none;
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+
+  .nav-list li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 0.75rem 0;
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: block; /* Ensure the hamburger button is visible on mobile */
+  }
+
+  /* --- Hero Section Adjustments (minor tweaks) --- */
+  .profile-frame {
+    width: 200px;
+    height: 200px;
+    border-width: 6px;
+  }
+
+  .hero-ctas {
+    flex-direction: column; /* Stack the CTA buttons */
+    gap: 0.5rem;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* --- Content Grid Adjustments --- */
+  .skills-grid,
+  .cert-grid,
+  .contact-grid {
+    /* Change multi-column sections to a single column */
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* --- Experience (Timeline) Adjustments --- */
+  .timeline-item {
+    /* Adjust the timeline layout for smaller screens */
+    padding-left: 1.5rem; /* Reduce the space for the timeline line */
+  }
+
+  .timeline-date {
+    /* Position the date above the content or align it clearly */
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline:before {
+    left: 10px; /* Adjust the position of the main timeline line */
+  }
+
+  .timeline-item:before {
+    left: 10px; /* Adjust the position of the dot on the timeline */
+  }
+
+  /* --- Footer Adjustments --- */
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+    margin-top: 1rem;
+  }
 }
