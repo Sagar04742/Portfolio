@@ -408,7 +408,7 @@ body {
 
   .hero-text {
     order: 2;
-    padding:20px;
+    padding: 20px;
   }
 
   .hero-ctas {
@@ -551,5 +551,204 @@ body {
   .footer-links {
     justify-content: center;
     margin-top: 1rem;
+  }
+}
+/* ####################################################### */
+/* #################### RESPONSIVENESS ##################### */
+/* ####################################################### */
+
+/* -------------------- 1. Tablet & Small Desktops (max-width: 1100px) -------------------- */
+/* We'll use 1100px as the break point to react before the main container width is reached */
+@media (max-width: 1100px) {
+  .container {
+    /* Increase padding slightly for breathing room on smaller screens */
+    padding: 0 1.5rem;
+  }
+
+  /* --- Navbar Adjustments --- */
+  .nav {
+    /* Ensure padding is consistent with the container */
+    padding: 10px 1.5rem;
+  }
+
+  .nav-actions {
+    /* Hide resume button in favor of mobile menu space */
+    display: none;
+  }
+
+  /* --- Hero Section Adjustments --- */
+  .hero-inner {
+    /* Force vertical stacking on larger tablets */
+    flex-direction: column;
+    text-align: center;
+    padding-top: 5rem;
+  }
+  .hero-text {
+    order: 2;
+    padding: 0;
+  }
+  .hero-media {
+    order: 1;
+    margin-bottom: 2rem;
+  }
+  .hero-ctas {
+    justify-content: center;
+  }
+  .hero-meta {
+    /* Revert from horizontal layout to vertical list for legibility */
+    display: block;
+    text-align: center;
+  }
+  .hero-meta li {
+    margin-bottom: 5px;
+  }
+
+  /* --- About Section Adjustments --- */
+  .about-grid {
+    /* Stack text and stats vertically */
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* --- Skills Section Adjustments --- */
+  .skills-grid {
+    /* Reduce to two columns on tablets */
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* --- Projects, Certifications Adjustments --- */
+  .projects .project-grid,
+  .cert-grid {
+    /* Reduce to two columns for these visual grids */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* -------------------- 2. Mobile Phones (max-width: 600px) -------------------- */
+@media (max-width: 600px) {
+  /* --- Base/Utility Adjustments --- */
+  h1 {
+    font-size: 2rem;
+  }
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+  .section-title {
+    font-size: 1.5rem;
+  }
+  .lead {
+    font-size: 1rem;
+  }
+
+  /* --- Navigation Bar (Hamburger Menu Logic) --- */
+  .nav {
+    /* Keep nav horizontal but allow for toggle button */
+    padding: 10px 1.5rem;
+  }
+
+  .nav-list {
+    /* Full-screen menu overlay */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background-color: var(--bg);
+    flex-direction: column;
+    justify-content: center;
+    /* Hide by default (JS will manage the 'open' state) */
+    display: none;
+    z-index: 100;
+    gap: 30px;
+    transition: transform 0.3s ease;
+    padding: 0;
+  }
+
+  .nav-list li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-link {
+    font-size: 1.4rem;
+  }
+
+  .nav-toggle {
+    /* Show hamburger button */
+    display: block;
+    margin-left: auto;
+  }
+
+  /* --- Hero Section Adjustments --- */
+  .hero-inner {
+    /* Text is still below image, but make image smaller */
+    padding-top: 3rem;
+  }
+  .profile-frame {
+    width: 150px;
+    height: 150px;
+    border-width: 3px;
+  }
+  .hero-ctas {
+    /* Stack buttons vertically */
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+  }
+  .hero-meta {
+    padding-top: 10px;
+  }
+
+  /* --- Skills Section Adjustments --- */
+  .skills-grid {
+    /* Single column stacking for all skill categories */
+    grid-template-columns: 1fr;
+  }
+
+  /* --- Projects & Certifications Adjustments --- */
+  .projects .project-grid,
+  .cert-grid {
+    /* Single column stacking for easier scrolling */
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .project-media img {
+    /* Project image height less aggressive on mobile */
+    height: 180px;
+  }
+
+  .cert-item {
+    /* Center the certification image/text vertically */
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  /* --- Experience (Timeline) Adjustments --- */
+  .timeline-item {
+    /* Stack date and content vertically */
+    flex-direction: column;
+    gap: 5px;
+    padding-bottom: 1.5rem;
+  }
+  .timeline-date {
+    /* Date becomes part of the content block */
+    min-width: 100%;
+  }
+
+  /* --- Footer Adjustments --- */
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .footer-links a {
+    margin-left: 0;
   }
 }
