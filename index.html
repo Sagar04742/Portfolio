@@ -1765,7 +1765,7 @@
       }
 
       /* ═══════════════════════════════════
-   TIMELINE SECTION
+   TIMELINE SECTION — ZIGZAG
 ═══════════════════════════════════ */
       #timeline {
         background: var(--black);
@@ -1776,8 +1776,9 @@
         font-family: "Bebas Neue", sans-serif;
         font-size: 60px;
         color: var(--white);
-        margin-bottom: 48px;
+        margin-bottom: 60px;
         line-height: 1;
+        text-align: center;
       }
       .timeline-heading .dot {
         color: var(--amber);
@@ -1785,70 +1786,374 @@
 
       .timeline-track {
         position: relative;
-        padding-left: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
       }
+
+      /* Center vertical line */
       .timeline-track::before {
         content: "";
         position: absolute;
-        left: 12px;
+        left: 50%;
         top: 0;
         bottom: 0;
         width: 2px;
-        background: linear-gradient(to bottom, var(--amber), transparent);
+        transform: translateX(-50%);
+        background: linear-gradient(to bottom, var(--amber), rgba(245,166,35,0.1));
       }
 
       .timeline-item {
         position: relative;
-        margin-bottom: 36px;
+        width: 44%;
+        margin-bottom: 52px;
         opacity: 0;
-        transform: translateX(-30px);
-        transition:
-          opacity 0.6s,
-          transform 0.6s;
+        transition: opacity 0.7s, transform 0.7s;
       }
-      .timeline-item.active {
+
+      /* Left items */
+      .timeline-item.tl-left {
+        align-self: flex-start;
+        margin-left: 0;
+        transform: translateX(-50px);
+        text-align: right;
+      }
+      .timeline-item.tl-left.active {
         opacity: 1;
         transform: translateX(0);
       }
+
+      /* Right items */
+      .timeline-item.tl-right {
+        align-self: flex-end;
+        margin-right: 0;
+        transform: translateX(50px);
+        text-align: left;
+      }
+      .timeline-item.tl-right.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* The dot on the center line */
       .timeline-dot {
         position: absolute;
-        left: -34px;
-        top: 6px;
-        width: 12px;
-        height: 12px;
+        top: 14px;
+        width: 14px;
+        height: 14px;
         background: var(--amber);
         border-radius: 50%;
-        border: 2px solid var(--black);
-        box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.3);
-        transition:
-          transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-          box-shadow 0.3s;
+        border: 3px solid var(--black);
+        box-shadow: 0 0 0 3px rgba(245,166,35,0.35);
+        transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow 0.3s;
+        z-index: 2;
+      }
+      .tl-left .timeline-dot {
+        right: -8.5%;
+      }
+      .tl-right .timeline-dot {
+        left: -8.5%;
       }
       .timeline-item:hover .timeline-dot {
-        transform: scale(1.8);
-        box-shadow: 0 0 10px 4px rgba(245, 166, 35, 0.5);
+        transform: scale(1.9);
+        box-shadow: 0 0 12px 5px rgba(245,166,35,0.55);
       }
+
+      /* Connector line from card to center dot */
+      .timeline-connector {
+        position: absolute;
+        top: 20px;
+        height: 2px;
+        background: rgba(245,166,35,0.3);
+        width: 7%;
+        transition: background 0.3s;
+      }
+      .tl-left .timeline-connector {
+        right: -7.2%;
+      }
+      .tl-right .timeline-connector {
+        left: -7.2%;
+      }
+      .timeline-item:hover .timeline-connector {
+        background: var(--amber);
+      }
+
+      /* Card box */
+      .timeline-card {
+        background: #141414;
+        border: 1px solid #2a2a2a;
+        border-radius: 16px;
+        padding: 22px 26px;
+        transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .timeline-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        height: 3px;
+        width: 0;
+        background: var(--amber);
+        transition: width 0.4s;
+      }
+      .tl-left .timeline-card::before { right: 0; }
+      .tl-right .timeline-card::before { left: 0; }
+      .timeline-item:hover .timeline-card::before { width: 100%; }
+      .timeline-item:hover .timeline-card {
+        border-color: rgba(245,166,35,0.4);
+        box-shadow: 0 16px 48px rgba(245,166,35,0.12);
+        transform: translateY(-3px);
+      }
+
       .timeline-year {
         font-family: "Bebas Neue", sans-serif;
-        font-size: 20px;
+        font-size: 32px;
         color: var(--amber);
-        margin-bottom: 4px;
-        transition: transform 0.3s;
-        display: inline-block;
-      }
-      .timeline-item:hover .timeline-year {
-        transform: translateX(5px);
+        line-height: 1;
+        margin-bottom: 6px;
+        display: block;
       }
       .timeline-title {
         font-weight: 800;
-        font-size: 16px;
+        font-size: 15px;
         color: var(--white);
-        margin-bottom: 4px;
+        margin-bottom: 6px;
+        line-height: 1.3;
       }
       .timeline-desc {
-        font-size: 13px;
-        color: #aaa;
-        line-height: 1.6;
+        font-size: 12.5px;
+        color: #999;
+        line-height: 1.65;
+      }
+
+      /* Featured 2026 card */
+      .timeline-item.tl-featured .timeline-card {
+        background: linear-gradient(135deg, #1a1400 0%, #141414 100%);
+        border-color: rgba(245,166,35,0.5);
+        box-shadow: 0 8px 32px rgba(245,166,35,0.1);
+      }
+      .timeline-item.tl-featured .timeline-year {
+        font-size: 40px;
+      }
+      .tl-featured-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--amber);
+        color: var(--black);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 3px 10px;
+        border-radius: 20px;
+        margin-bottom: 8px;
+      }
+      .tl-featured-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 12px;
+        justify-content: flex-end;
+      }
+      .tl-right .tl-featured-tags {
+        justify-content: flex-start;
+      }
+      .tl-featured-tag {
+        font-size: 11px;
+        font-weight: 700;
+        background: rgba(245,166,35,0.12);
+        color: var(--amber);
+        padding: 4px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(245,166,35,0.25);
+      }
+
+      /* Mobile responsive */
+      @media (max-width: 768px) {
+        .timeline-track::before { left: 20px; transform: none; }
+        .timeline-item { width: 85%; align-self: flex-end !important; text-align: left !important; margin-left: auto; }
+        .tl-left .timeline-dot, .tl-right .timeline-dot { left: -11%; right: auto; }
+        .tl-left .timeline-connector, .tl-right .timeline-connector { left: -10%; right: auto; }
+        .tl-featured-tags { justify-content: flex-start !important; }
+        .tl-left .timeline-card::before { left: 0; right: auto; }
+      }
+
+      /* ═══════════════════════════════════
+   UI PROJECTS SECTION
+═══════════════════════════════════ */
+      #ui-projects {
+        background: var(--amber-light);
+        padding: 70px 80px;
+        border-top: 2px solid var(--black);
+        position: relative;
+        overflow: visible;
+      }
+      .ui-projects-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 60px;
+        margin-bottom: 12px;
+        line-height: 1;
+      }
+      .ui-projects-heading .dot { color: var(--amber); }
+      .ui-projects-sub {
+        font-size: 15px;
+        color: var(--text-mid);
+        margin-bottom: 48px;
+        max-width: 460px;
+      }
+      .ui-projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .ui-project-card {
+        position: relative;
+        background: rgba(255,255,255,0.85);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 32px 28px;
+        border: 2px solid transparent;
+        transition: all 0.35s cubic-bezier(0.175,0.885,0.32,1.275);
+        cursor: none;
+        overflow: visible;
+      }
+      .ui-project-card:hover {
+        border-color: var(--amber);
+        transform: translateY(-6px);
+        box-shadow: 0 24px 56px rgba(245,166,35,0.2);
+      }
+      .ui-project-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 0; height: 3px;
+        background: var(--amber);
+        border-radius: 0 0 16px 16px;
+        transition: width 0.4s;
+      }
+      .ui-project-card:hover::after { width: 100%; }
+
+      .ui-project-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 72px;
+        color: var(--amber);
+        opacity: 0.1;
+        position: absolute;
+        right: 16px; top: -8px;
+        line-height: 1;
+        pointer-events: none;
+        transition: opacity 0.4s, transform 0.4s;
+      }
+      .ui-project-card:hover .ui-project-num {
+        opacity: 0.25;
+        transform: scale(1.1) rotate(5deg);
+      }
+      .ui-project-icon {
+        font-size: 36px;
+        margin-bottom: 14px;
+        display: block;
+        transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+      }
+      .ui-project-card:hover .ui-project-icon {
+        transform: scale(1.2) rotate(-8deg);
+      }
+      .ui-project-name {
+        font-weight: 900;
+        font-size: 17px;
+        color: var(--black);
+        margin-bottom: 8px;
+      }
+      .ui-project-desc {
+        font-size: 12.5px;
+        color: var(--text-mid);
+        line-height: 1.7;
+        margin-bottom: 14px;
+      }
+      .ui-project-tag {
+        display: inline-block;
+        font-size: 10.5px;
+        font-weight: 700;
+        background: rgba(245,166,35,0.15);
+        color: var(--amber-dark);
+        padding: 3px 10px;
+        border-radius: 20px;
+        margin-right: 4px;
+        margin-bottom: 4px;
+        transition: all 0.3s;
+      }
+      .ui-project-card:hover .ui-project-tag {
+        background: var(--amber);
+        color: var(--black);
+      }
+      .ui-hover-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10.5px;
+        font-weight: 800;
+        color: var(--text-mid);
+        letter-spacing: 0.5px;
+        margin-top: 12px;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+      }
+      .ui-project-card:hover .ui-hover-badge { opacity: 0; }
+
+      /* Floating screenshot preview */
+      .ui-preview-float {
+        position: fixed;
+        pointer-events: none;
+        z-index: 8000;
+        opacity: 0;
+        transform: scale(0.88) translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.35), 0 0 0 2px rgba(245,166,35,0.5);
+        width: 320px;
+        height: 210px;
+        background: #1a1a1a;
+      }
+      .ui-preview-float.visible {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+      .ui-preview-float img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        display: block;
+      }
+      .ui-preview-label {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        background: linear-gradient(to top, rgba(10,10,10,0.95), transparent);
+        padding: 20px 14px 10px;
+        color: var(--white);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+      }
+      .ui-preview-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: #555;
+      }
+      .ui-preview-placeholder span:first-child { font-size: 32px; }
+      .ui-preview-placeholder span:last-child { font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+
+      @media (max-width: 768px) {
+        .ui-projects-grid { grid-template-columns: 1fr; }
+        .ui-preview-float { display: none; }
       }
 
       /* ═══════════════════════════════════
@@ -1888,8 +2193,8 @@
       .contact-link-item {
         display: flex;
         align-items: center;
-        gap: 16px;
-        padding: 18px 24px;
+        gap: 14px;
+        padding: 16px 20px;
         background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(10px);
         border-radius: 14px;
@@ -1901,36 +2206,53 @@
       }
       .contact-link-item:hover {
         border-color: var(--amber);
-        transform: translateX(12px) scale(1.02);
-        box-shadow: 0 15px 40px rgba(245, 166, 35, 0.2);
+        transform: translateX(10px) scale(1.02);
+        box-shadow: 0 12px 36px rgba(245, 166, 35, 0.18);
       }
       .contact-link-icon {
-        width: 42px;
-        height: 42px;
+        width: 44px;
+        height: 44px;
         background: var(--amber);
-        border-radius: 10px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
+        font-size: 20px;
         flex-shrink: 0;
         transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
       .contact-link-item:hover .contact-link-icon {
-        transform: rotate(15deg) scale(1.2);
-        box-shadow: 0 0 15px rgba(245, 166, 35, 0.5);
+        transform: rotate(12deg) scale(1.15);
+        box-shadow: 0 0 14px rgba(245, 166, 35, 0.5);
+      }
+      .contact-link-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
       }
       .contact-link-info .contact-link-label {
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 1px;
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 1.5px;
         text-transform: uppercase;
         color: var(--text-mid);
       }
-      .contact-link-info .contact-link-val {
-        font-size: 14px;
-        font-weight: 700;
+      .contact-link-info .contact-link-name {
+        font-size: 15px;
+        font-weight: 800;
         color: var(--black);
+      }
+      .contact-link-arrow {
+        margin-left: auto;
+        font-size: 18px;
+        color: var(--amber);
+        opacity: 0;
+        transform: translateX(-6px);
+        transition: opacity 0.3s, transform 0.3s;
+      }
+      .contact-link-item:hover .contact-link-arrow {
+        opacity: 1;
+        transform: translateX(0);
       }
 
       .contact-cta-wrap {
@@ -2889,49 +3211,7 @@
           </div>
         </div>
 
-        <div
-          class="project-card reveal tilt-card"
-          style="transition-delay: 0.2s"
-          onmousemove="updateCardGlow(event, this)"
-        >
-          <div class="project-card-glow"></div>
-          <div class="project-num">04</div>
-          <div class="project-title">SupportBot AI</div>
-          <div class="project-tech">Python · LLMs · RAG · Node.js</div>
-          <div class="project-desc">
-            <strong
-              style="
-                font-size: 10.5px;
-                color: var(--amber-dark);
-                letter-spacing: 0.5px;
-                text-transform: uppercase;
-              "
-              >Problem —</strong
-            >
-            Generic chatbots hallucinate answers; enterprises need responses
-            grounded in their own knowledge base.<br />
-            <strong
-              style="
-                font-size: 10.5px;
-                color: var(--amber-dark);
-                letter-spacing: 0.5px;
-                text-transform: uppercase;
-              "
-              >Outcome —</strong
-            >
-            RAG-powered support bot that retrieves from a corporate knowledge
-            base, providing accurate, context-aware responses via API.
-          </div>
-          <div class="project-badge">✅ Completed</div>
-          <div class="project-links">
-            <a
-              href="https://github.com/Sagar04742/SupportBot-AI"
-              target="_blank"
-              class="project-link"
-              >GitHub →</a
-            >
-          </div>
-        </div>
+  
       </div>
     </section>
 
@@ -2948,64 +3228,76 @@
       </h2>
 
       <div class="timeline-track">
-        <div class="timeline-item reveal">
+
+        <!-- 2023 — LEFT -->
+        <div class="timeline-item tl-left reveal">
+          <div class="timeline-connector"></div>
           <div class="timeline-dot"></div>
-          <div class="timeline-year">2023</div>
-          <div class="timeline-title">Started B.Tech CSE at JIS University</div>
-          <div class="timeline-desc">
-            Began my computer science journey with a strong academic start.
-            Quickly developed passion for full-stack development and
-            problem-solving.
+          <div class="timeline-card">
+            <span class="timeline-year">2023</span>
+            <div class="timeline-title">Started B.Tech CSE at JIS University</div>
+            <div class="timeline-desc">
+              Began my computer science journey with a strong academic start (CGPA 9.18).
+              Quickly developed a passion for development and problem-solving.
+            </div>
           </div>
         </div>
-        <div class="timeline-item reveal" style="transition-delay: 0.1s">
+
+        <!-- 2024 — RIGHT -->
+        <div class="timeline-item tl-right reveal" style="transition-delay:0.1s">
+          <div class="timeline-connector"></div>
           <div class="timeline-dot"></div>
-          <div class="timeline-year">2024</div>
-          <div class="timeline-title">
-            Python Certification + Freelance Launch
-          </div>
-          <div class="timeline-desc">
-            Earned Python certification from Uphoria GenX. Launched Pixel Forge
-            as a freelance design and web studio. Began exploring AI and prompt
-            engineering.
+          <div class="timeline-card">
+            <span class="timeline-year">2024</span>
+            <div class="timeline-title">Python Certification + BCT Training Program</div>
+            <div class="timeline-desc">
+              Earned Python Programming certification. Completed BCT Training Program,
+              gaining foundational knowledge of MERN full-stack development and
+              modern web technologies.
+            </div>
           </div>
         </div>
-        <div class="timeline-item reveal" style="transition-delay: 0.2s">
+
+        <!-- 2025 — LEFT -->
+        <div class="timeline-item tl-left reveal" style="transition-delay:0.2s">
+          <div class="timeline-connector"></div>
           <div class="timeline-dot"></div>
-          <div class="timeline-year">2025</div>
-          <div class="timeline-title">
-            SupportBot AI, InstaClone & Certifications
-          </div>
-          <div class="timeline-desc">
-            Built conversational agents, production-grade backend for social
-            media, and expanded skill set. Earned Full Stack, Cyber Security,
-            and Java certifications.
+          <div class="timeline-card">
+            <span class="timeline-year">2025</span>
+            <div class="timeline-title">JavaScript & Frontend Development</div>
+            <div class="timeline-desc">
+              Mastered JavaScript in depth and dived into frontend development.
+              Built SupportBot AI (RAG-powered chatbot), InstaClone backend,
+              and earned Full Stack & Cyber Security certifications.
+            </div>
           </div>
         </div>
-        <div class="timeline-item reveal" style="transition-delay: 0.3s">
+
+        <!-- 2026 — RIGHT — FEATURED -->
+        <div class="timeline-item tl-right tl-featured reveal" style="transition-delay:0.3s">
+          <div class="timeline-connector"></div>
           <div class="timeline-dot"></div>
-          <div class="timeline-year">Jan–Feb 2026</div>
-          <div class="timeline-title">
-            Hackathon 2nd Place — "The Silent Voice"
-          </div>
-          <div class="timeline-desc">
-            Won 2nd place building a real-time sign language recognition system.
-            Competed against 50+ teams and delivered a fully functional
-            AI-powered accessibility tool.
+          <div class="timeline-card">
+            <div class="tl-featured-badge">⭐ Current Chapter</div>
+            <span class="timeline-year">2026</span>
+            <div class="timeline-title">MERN Stack · Freelancing · Prompt Engineering</div>
+            <div class="timeline-desc">
+              Levelled up to full MERN stack development. Launched freelance studio
+              <strong style="color:var(--amber)">Pixel Forge</strong>.
+              Won 🥈 Hackathon 2nd Place with <em>"The Silent Voice"</em> — a real-time
+              sign language recognition AI. Currently building
+              <strong style="color:var(--amber)">GreenSense AI</strong> and
+              actively pursuing opportunities in Full Stack & AI Engineering.
+            </div>
+            <div class="tl-featured-tags">
+              <span class="tl-featured-tag">MERN Stack</span>
+              <span class="tl-featured-tag">Freelancing</span>
+              <span class="tl-featured-tag">Prompt Engineering</span>
+              <span class="tl-featured-tag">AI Systems</span>
+            </div>
           </div>
         </div>
-        <div class="timeline-item reveal" style="transition-delay: 0.4s">
-          <div class="timeline-dot"></div>
-          <div class="timeline-year">Apr 2026</div>
-          <div class="timeline-title">
-            GreenSense AI — Environmental Platform
-          </div>
-          <div class="timeline-desc">
-            Currently building an AI-based environmental analysis platform
-            combining computer vision and NLP to detect ecological issues and
-            recommend sustainable solutions.
-          </div>
-        </div>
+
       </div>
     </section>
 
@@ -3016,9 +3308,9 @@
 
       <div class="certs-grid">
         <div class="cert-item reveal">
-          <div class="cert-icon">⚡</div>
+          <div class="cert-icon">🌐</div>
           <div>
-            <div class="cert-title">Full Stack Development with Python</div>
+            <div class="cert-title">MERN Full Stack Development</div>
             <div class="cert-org">Workbuds</div>
           </div>
         </div>
@@ -3030,19 +3322,99 @@
           </div>
         </div>
         <div class="cert-item reveal" style="transition-delay: 0.2s">
-          <div class="cert-icon">☕</div>
+          <div class="cert-icon">🤖</div>
           <div>
-            <div class="cert-title">Java Programming</div>
-            <div class="cert-org">NPTEL</div>
+            <div class="cert-title">Prompt Engineering</div>
+            <div class="cert-org">B10X</div>
           </div>
         </div>
         <div class="cert-item reveal" style="transition-delay: 0.3s">
+          <div class="cert-icon">✨</div>
+          <div>
+            <div class="cert-title">B10X AI Certification</div>
+            <div class="cert-org">B10X</div>
+          </div>
+        </div>
+        <div class="cert-item reveal" style="transition-delay: 0.4s">
           <div class="cert-icon">🐍</div>
           <div>
             <div class="cert-title">Python Programming</div>
             <div class="cert-org">Uphoria GenX</div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Floating screenshot preview (global, moved by JS) -->
+    <div class="ui-preview-float" id="uiPreviewFloat">
+      <div class="ui-preview-placeholder" id="uiPreviewPlaceholder">
+        <span>🖼️</span>
+        <span>SCREENSHOT PREVIEW</span>
+      </div>
+      <img id="uiPreviewImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;object-position:top;" />
+      <div class="ui-preview-label" id="uiPreviewLabel"></div>
+    </div>
+
+    <div class="section-label-bar">
+      <span class="section-label-title">UI Projects</span>
+      <a href="#ui-projects" class="section-label-btn magnetic-btn">›</a>
+    </div>
+
+    <section id="ui-projects">
+      <h2 class="ui-projects-heading reveal">UI PROJECTS<span class="dot">.</span></h2>
+      <p class="ui-projects-sub reveal">
+        Pixel-perfect UI implementations assigned during training — each built from a provided design spec.
+      </p>
+
+      <div class="ui-projects-grid">
+
+        <div class="ui-project-card reveal tilt-card"
+          data-preview="./sweaters.png"
+          data-name="UI Project Alpha">
+          <div class="ui-project-num">01</div>
+          <span class="ui-project-icon">🎨</span>
+          <div class="ui-project-name">Sweaters</div>
+          <div class="ui-project-desc">
+            A responsive landing page built from a provided design spec. Focused on layout precision, typography, and cross-browser consistency.
+          </div>
+          <span class="ui-project-tag">HTML</span>
+          <span class="ui-project-tag">CSS</span>
+          <span class="ui-project-tag">Responsive</span>
+          <div class="ui-hover-badge">👆 Hover for preview</div>
+        </div>
+
+        <div class="ui-project-card reveal tilt-card"
+          style="transition-delay:0.1s"
+          data-preview="./mediplex.png"
+          data-name="UI Project Beta">
+          <div class="ui-project-num">02</div>
+          <span class="ui-project-icon">🖥️</span>
+          <div class="ui-project-name">UI Project Beta</div>
+          <div class="ui-project-desc">
+            A multi-section web interface replication with interactive components, animations, and clean component structure.
+          </div>
+          <span class="ui-project-tag">JavaScript</span>
+          <span class="ui-project-tag">CSS</span>
+          <span class="ui-project-tag">Animations</span>
+          <div class="ui-hover-badge">👆 Hover for preview</div>
+        </div>
+
+        <div class="ui-project-card reveal tilt-card"
+          style="transition-delay:0.2s"
+          data-preview="./MR.png"
+          data-name="UI Project Gamma">
+          <div class="ui-project-num">03</div>
+          <span class="ui-project-icon">📱</span>
+          <div class="ui-project-name">UI Project Gamma</div>
+          <div class="ui-project-desc">
+            A mobile-first UI build with attention to spacing, visual hierarchy, and interactive states across all screen sizes.
+          </div>
+          <span class="ui-project-tag">Mobile-First</span>
+          <span class="ui-project-tag">Flexbox</span>
+          <span class="ui-project-tag">Grid</span>
+          <div class="ui-hover-badge">👆 Hover for preview</div>
+        </div>
+
       </div>
     </section>
 
@@ -3067,44 +3439,34 @@
           <a href="mailto:guptasagar04742@gmail.com" class="contact-link-item">
             <div class="contact-link-icon">📧</div>
             <div class="contact-link-info">
-              <div class="contact-link-label">Email</div>
-              <div class="contact-link-val">guptasagar04742@gmail.com</div>
+              <div class="contact-link-label">Send a mail</div>
+              <div class="contact-link-name">Email Me</div>
             </div>
+            <div class="contact-link-arrow">→</div>
           </a>
-          <a
-            href="https://wa.me/917439126630"
-            target="_blank"
-            class="contact-link-item"
-          >
+          <a href="https://wa.me/917439126630" target="_blank" class="contact-link-item">
             <div class="contact-link-icon">💬</div>
             <div class="contact-link-info">
-              <div class="contact-link-label">WhatsApp</div>
-              <div class="contact-link-val">+91-7439126630</div>
+              <div class="contact-link-label">Chat directly</div>
+              <div class="contact-link-name">WhatsApp</div>
             </div>
+            <div class="contact-link-arrow">→</div>
           </a>
-          <a
-            href="https://www.linkedin.com/in/sagar-gupta230804/"
-            target="_blank"
-            class="contact-link-item"
-          >
+          <a href="https://www.linkedin.com/in/sagar-gupta230804/" target="_blank" class="contact-link-item">
             <div class="contact-link-icon">💼</div>
             <div class="contact-link-info">
-              <div class="contact-link-label">LinkedIn</div>
-              <div class="contact-link-val">
-                linkedin.com/in/sagar-gupta230804
-              </div>
+              <div class="contact-link-label">Professional network</div>
+              <div class="contact-link-name">LinkedIn</div>
             </div>
+            <div class="contact-link-arrow">→</div>
           </a>
-          <a
-            href="https://github.com/Sagar04742"
-            target="_blank"
-            class="contact-link-item"
-          >
+          <a href="https://github.com/Sagar04742" target="_blank" class="contact-link-item">
             <div class="contact-link-icon">🐙</div>
             <div class="contact-link-info">
-              <div class="contact-link-label">GitHub</div>
-              <div class="contact-link-val">github.com/Sagar04742</div>
+              <div class="contact-link-label">See my work</div>
+              <div class="contact-link-name">GitHub</div>
             </div>
+            <div class="contact-link-arrow">→</div>
           </a>
         </div>
 
@@ -3535,6 +3897,59 @@
           d.style.transform = `translate(${xRatio * speed}px, ${yRatio * speed}px)`;
         });
       });
+
+      /* ═══════════════════════════════════
+   UI PROJECTS — FLOATING PREVIEW
+═══════════════════════════════════ */
+      (function () {
+        const float = document.getElementById("uiPreviewFloat");
+        const floatImg = document.getElementById("uiPreviewImg");
+        const floatPlaceholder = document.getElementById("uiPreviewPlaceholder");
+        const floatLabel = document.getElementById("uiPreviewLabel");
+        let raf;
+
+        function moveFloat(e) {
+          const x = e.clientX;
+          const y = e.clientY;
+          const fw = 320, fh = 210;
+          const vw = window.innerWidth, vh = window.innerHeight;
+          let left = x + 22;
+          let top = y - fh / 2;
+          if (left + fw > vw - 12) left = x - fw - 22;
+          if (top < 10) top = 10;
+          if (top + fh > vh - 10) top = vh - fh - 10;
+          float.style.left = left + "px";
+          float.style.top = top + "px";
+        }
+
+        document.querySelectorAll(".ui-project-card").forEach((card) => {
+          const imgSrc = card.dataset.preview;
+          const name = card.dataset.name;
+
+          card.addEventListener("mouseenter", (e) => {
+            floatLabel.textContent = name;
+            if (imgSrc) {
+              floatImg.src = imgSrc;
+              floatImg.style.display = "block";
+              floatPlaceholder.style.display = "none";
+            } else {
+              floatImg.style.display = "none";
+              floatPlaceholder.style.display = "flex";
+            }
+            moveFloat(e);
+            float.classList.add("visible");
+          });
+
+          card.addEventListener("mousemove", (e) => {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => moveFloat(e));
+          });
+
+          card.addEventListener("mouseleave", () => {
+            float.classList.remove("visible");
+          });
+        });
+      })();
     </script>
   </body>
 </html>
