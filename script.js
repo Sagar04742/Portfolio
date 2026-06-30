@@ -112,12 +112,26 @@
 
 
 /* ═══════════════════════════════════
+   DEVICE DETECTION — used to fully gate
+   all custom-cursor logic off touch devices
+═══════════════════════════════════ */
+const isTouchDevice =
+  window.matchMedia("(pointer: coarse)").matches ||
+  "ontouchstart" in window ||
+  navigator.maxTouchPoints > 0;
+const isDesktop = window.innerWidth > 768 && !isTouchDevice;
+
+if (isTouchDevice) {
+  document.documentElement.classList.add("is-touch");
+}
+
+/* ═══════════════════════════════════
    BACKGROUND AMBIENT ORB
 ═══════════════════════════════════ */
 const bgOrb = document.getElementById("bgOrb");
 let tickingOrb = false;
 window.addEventListener("mousemove", (e) => {
-  if (window.innerWidth > 768 && !tickingOrb && bgOrb) {
+  if (isDesktop && !tickingOrb && bgOrb) {
     requestAnimationFrame(() => {
       bgOrb.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
       tickingOrb = false;
@@ -185,7 +199,7 @@ function animateFluidCursor() {
   requestAnimationFrame(animateFluidCursor);
 }
 
-if (window.innerWidth > 768) {
+if (isDesktop) {
   animateFluidCursor();
 }
 
@@ -195,7 +209,7 @@ if (window.innerWidth > 768) {
    — 4 corner brackets + pulsing dot
 ═══════════════════════════════════ */
 (function () {
-  if (window.innerWidth <= 768) return;
+  if (!isDesktop) return;
 
   // Create the reticle element
   const reticle = document.createElement("div");
@@ -271,23 +285,29 @@ if (window.innerWidth > 768) {
 
 /* ═══════════════════════════════════
    HOVER STATES FOR FLUID CURSOR
+   — only registered on real desktop pointers,
+     never on touch (taps fire synthetic mouseenter
+     events and would otherwise leave the cursor
+     stuck in a hover-active state on mobile)
 ═══════════════════════════════════ */
-const hoverElements = document.querySelectorAll(
-  "h1, h2, h3, h4, p, span, a, button, img, .skill-chip, .project-card, .service-card, .cert-item, .contact-link-item, .work-item, .contact-item, .hero-deco, .timeline-item, .nav-item-wrap",
-);
+if (isDesktop) {
+  const hoverElements = document.querySelectorAll(
+    "h1, h2, h3, h4, p, span, a, button, img, .skill-chip, .project-card, .service-card, .cert-item, .contact-link-item, .work-item, .contact-item, .hero-deco, .timeline-item, .nav-item-wrap",
+  );
 
-hoverElements.forEach((el) => {
-  el.addEventListener("mouseenter", () => {
-    if (cursorCore) cursorCore.classList.add("hover-active");
-    if (cursor) cursor.classList.add("hover-active");
-    trails.forEach((t) => t.classList.add("hover-active"));
+  hoverElements.forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+      if (cursorCore) cursorCore.classList.add("hover-active");
+      if (cursor) cursor.classList.add("hover-active");
+      trails.forEach((t) => t.classList.add("hover-active"));
+    });
+    el.addEventListener("mouseleave", () => {
+      if (cursorCore) cursorCore.classList.remove("hover-active");
+      if (cursor) cursor.classList.remove("hover-active");
+      trails.forEach((t) => t.classList.remove("hover-active"));
+    });
   });
-  el.addEventListener("mouseleave", () => {
-    if (cursorCore) cursorCore.classList.remove("hover-active");
-    if (cursor) cursor.classList.remove("hover-active");
-    trails.forEach((t) => t.classList.remove("hover-active"));
-  });
-});
+}
 
 /* ═══════════════════════════════════
    MAGNETIC BUTTONS (Optimized)
@@ -295,7 +315,7 @@ hoverElements.forEach((el) => {
 document.querySelectorAll(".magnetic-btn").forEach((btn) => {
   let tickingMag = false;
   btn.addEventListener("mousemove", (e) => {
-    if (window.innerWidth <= 768) return;
+    if (!isDesktop) return;
     if (!tickingMag) {
       requestAnimationFrame(() => {
         const rect = btn.getBoundingClientRect();
@@ -318,7 +338,7 @@ document.querySelectorAll(".magnetic-btn").forEach((btn) => {
 document.querySelectorAll(".tilt-card").forEach((card) => {
   let tickingTilt = false;
   card.addEventListener("mousemove", (e) => {
-    if (window.innerWidth <= 768) return;
+    if (!isDesktop) return;
     if (!tickingTilt) {
       requestAnimationFrame(() => {
         const rect = card.getBoundingClientRect();
@@ -603,7 +623,7 @@ if (heroEl) {
 
   document.querySelectorAll(".cert-item").forEach((card) => {
     card.addEventListener("mouseenter", (e) => {
-      if (window.innerWidth <= 768) return;
+      if (!isDesktop) return;
       const imgSrc = card.dataset.certImg;
       const name = card.dataset.certName || "";
       if (floatName) floatName.textContent = name;
@@ -619,7 +639,7 @@ if (heroEl) {
     });
 
     card.addEventListener("mousemove", (e) => {
-      if (window.innerWidth <= 768) return;
+      if (!isDesktop) return;
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => moveCertFloat(e));
     });

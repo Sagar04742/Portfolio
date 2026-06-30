@@ -2415,6 +2415,57 @@ footer {
 }
 
 /* ═══════════════════════════════════
+   TOUCH DEVICE SAFETY NET
+   — hides every custom-cursor element on any
+     coarse-pointer (touch) device, regardless
+     of viewport width, so emulators/tablets
+     never show leftover desktop cursor artifacts
+═══════════════════════════════════ */
+@media (pointer: coarse) {
+  html {
+    cursor: auto !important;
+  }
+  .fluid-cursor,
+  .fluid-cursor-core,
+  .fluid-cursor-trail,
+  #cursor-reticle,
+  .bg-glow-orb {
+    display: none !important;
+  }
+  a,
+  button,
+  .skill-chip,
+  .project-card,
+  .service-card,
+  .cert-item,
+  .contact-link-item,
+  .work-item,
+  .hero-arrow,
+  .hero-cta,
+  .hero-cv-btn,
+  .acb,
+  .freelance-cta,
+  .contact-big-cta,
+  .project-link,
+  .ui-project-card,
+  .nav-item-wrap,
+  .footer-col ul a {
+    cursor: pointer !important;
+  }
+}
+
+.is-touch .fluid-cursor,
+.is-touch .fluid-cursor-core,
+.is-touch .fluid-cursor-trail,
+.is-touch #cursor-reticle,
+.is-touch .bg-glow-orb {
+  display: none !important;
+}
+.is-touch {
+  cursor: auto !important;
+}
+
+/* ═══════════════════════════════════
    RESPONSIVE (General)
 ═══════════════════════════════════ */
 @media (max-width: 1024px) {
@@ -2515,7 +2566,8 @@ footer {
   }
   .fluid-cursor,
   .fluid-cursor-core,
-  .fluid-cursor-trail {
+  .fluid-cursor-trail,
+  #cursor-reticle {
     display: none !important;
   }
   .bg-glow-orb {
@@ -2678,25 +2730,32 @@ footer {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+:root {
+  --mobile-nav-height: 58px;
+}
+
 .nav-mobile-menu {
   display: none;
   position: fixed;
-  top: 62px;
+  top: var(--mobile-nav-height);
   left: 0;
   right: 0;
-  background: rgba(10, 10, 10, 0.97);
+  bottom: 0;
+  background: rgba(10, 10, 10, 0.98);
   backdrop-filter: blur(16px);
-  padding: 24px 32px;
+  padding: 28px 28px 100px;
   flex-direction: column;
-  gap: 20px;
+  gap: 4px;
   z-index: 8999;
-  border-bottom: 1px solid rgba(245, 166, 35, 0.18);
-  transform: translateY(-10px);
+  border-bottom: none;
+  transform: translateY(-12px);
   opacity: 0;
   transition:
     opacity 0.3s,
     transform 0.3s;
   pointer-events: none;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .nav-mobile-menu.open {
   display: flex;
@@ -2704,11 +2763,28 @@ footer {
   transform: translateY(0);
   pointer-events: all;
 }
+.nav-mobile-menu .nav-item-wrap {
+  padding: 14px 4px;
+  border-right: none;
+  justify-content: flex-start;
+}
 .nav-mobile-menu .nav-link {
-  font-size: 14px;
+  font-size: 16px;
+  letter-spacing: 1px;
   padding: 8px 0;
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1f1f1f;
   pointer-events: auto;
+  width: 100%;
+}
+.nav-mobile-menu .cv-item {
+  margin-top: 16px;
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+.nav-mobile-menu .cv-item .nav-link {
+  border-bottom: none;
+  color: var(--black);
+  font-weight: 900;
 }
 
 /* Mobile Adjustments */
@@ -2717,8 +2793,10 @@ footer {
     top: 0;
     bottom: auto;
     width: 100%;
+    height: var(--mobile-nav-height);
     border-top: none;
     border-bottom: 2px solid var(--amber);
+    border-radius: 0;
     justify-content: flex-end;
   }
   #site-nav.nav-hidden {
