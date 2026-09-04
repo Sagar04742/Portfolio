@@ -6,7 +6,7 @@
     <title>Sagar Gupta — Full Stack & AI Developer | Kolkata</title>
     <meta
       name="description"
-      content="Sagar Gupta — CS Engineering student (CGPA 9.18) building full-stack web apps, AI chatbots, and RAG systems. Hackathon 2nd place winner. Open to internships in Full Stack & AI Engineering."
+      content="Sagar Gupta — Web Developer at Flewny & CS Engineering student (CGPA 9.18) building full-stack web apps, AI chatbots, and RAG systems. Hackathon 2nd place winner. Open to freelance & full-time Full Stack / AI Engineering opportunities."
     />
     <meta
       name="keywords"
@@ -24,7 +24,7 @@
     <meta property="og:title" content="Sagar Gupta — Full Stack & AI Developer" />
     <meta
       property="og:description"
-      content="CS Engineering student (CGPA 9.18) building full-stack apps, AI chatbots & RAG systems. Hackathon 2nd place. Open to internships."
+      content="Web Developer at Flewny & CS Engineering student (CGPA 9.18) building full-stack apps, AI chatbots & RAG systems. Hackathon 2nd place. Open to freelance & full-time opportunities."
     />
     <meta property="og:image" content="https://www.sagargupta.site/propic.png" />
     <meta property="og:site_name" content="Sagar Gupta Portfolio" />
@@ -33,7 +33,7 @@
     <meta name="twitter:title" content="Sagar Gupta — Full Stack & AI Developer" />
     <meta
       name="twitter:description"
-      content="CS Engineering student (CGPA 9.18) building full-stack apps, AI chatbots & RAG systems. Hackathon 2nd place."
+      content="Web Developer at Flewny & CS Engineering student (CGPA 9.18) building full-stack apps, AI chatbots & RAG systems. Hackathon 2nd place."
     />
     <meta name="twitter:image" content="https://www.sagargupta.site/propic.png" />
 
@@ -44,11 +44,15 @@
         "name": "Sagar Gupta",
         "url": "https://www.sagargupta.site",
         "email": "guptasagar04742@gmail.com",
-        "jobTitle": "Full Stack & AI Developer",
-        "description": "CS Engineering student at JIS University Kolkata. CGPA 9.18. Building full-stack web apps, AI chatbots, and RAG systems.",
+        "jobTitle": "Web Developer",
+        "description": "Web Developer at Flewny and CS Engineering student at JIS University Kolkata. CGPA 9.18. Building full-stack web apps, AI chatbots, and RAG systems.",
         "alumniOf": {
           "@type": "CollegeOrUniversity",
           "name": "JIS University, Kolkata"
+        },
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Flewny"
         },
         "sameAs": [
           "https://www.linkedin.com/in/sagar-gupta230804/",
@@ -132,17 +136,42 @@
     <div class="fluid-cursor-trail trail-dot"></div>
 
     <div id="preloader">
+      <div class="preloader-half preloader-half-top"></div>
+      <div class="preloader-half preloader-half-bottom"></div>
       <div class="preloader-content">
+        <div class="preloader-line-track">
+          <div class="preloader-line" id="preloader-line"></div>
+        </div>
         <div class="preloader-percentage" id="preloader-percentage">00</div>
-        <div class="preloader-track">
-          <div class="preloader-fill" id="preloader-fill"></div>
-        </div>
-        <div class="loader-status" id="loader-status">
-          Booting dev environment
-        </div>
       </div>
     </div>
 
+    <!-- Fixed-position hover-preview floaters — kept OUTSIDE #site-content
+         because a `transform` on an ancestor (even scale(1)) turns it into
+         the containing block for position:fixed descendants, which breaks
+         these floaters' true viewport-fixed tracking. -->
+    <div class="cert-preview-float" id="certPreviewFloat">
+      <div class="cert-preview-placeholder" id="certPreviewPlaceholder">
+        <span>🏅</span>
+        <span>CERTIFICATE PREVIEW</span>
+      </div>
+      <img id="certPreviewImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;object-position:top;" />
+      <div class="cert-preview-label" id="certPreviewLabel">
+        <span id="certPreviewName"></span>
+        <span style="color:var(--amber);font-size:10px;">Hover ↑</span>
+      </div>
+    </div>
+
+    <div class="ui-preview-float" id="uiPreviewFloat">
+      <div class="ui-preview-placeholder" id="uiPreviewPlaceholder">
+        <span>🖼️</span>
+        <span>SCREENSHOT PREVIEW</span>
+      </div>
+      <img id="uiPreviewImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;object-position:top;" />
+      <div class="ui-preview-label" id="uiPreviewLabel"></div>
+    </div>
+
+    <div id="site-content">
     <section id="hero">
       <div class="hero-deco deco-1">⚙️</div>
       <div class="hero-deco deco-2">💻</div>
@@ -184,22 +213,22 @@
             <span class="stat-label">Projects</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num" data-target="4">0</span>
-            <span class="stat-label">Certifications</span>
+            <span class="stat-num" data-target="2">0</span>
+            <span class="stat-label">Companies</span>
           </div>
-        </div>
-
-        <div class="hero-best-label">
-          🥈 Hackathon 2nd Place<br /><em
-            >"The Silent Voice" — JIS University 2026</em
-          >
         </div>
       </div>
 
       <div class="hero-right">
         <div class="hero-photo-wrap tilt-card">
-          <div class="hero-num">02</div>
-          <div class="hero-photo-bg"></div>
+          <div class="hero-photo-bg">
+            <div class="hero-best-label">
+              <div class="hbl-line"><span class="hbl-icon">💼</span> Web Developer @ Flewny</div>
+              <div class="hbl-sub">Remote — Since Jul 2026</div>
+              <div class="hbl-line"><span class="hbl-icon">🥈</span> Hackathon 2nd Place</div>
+              <div class="hbl-sub">"The Silent Voice" — JIS University 2026</div>
+            </div>
+          </div>
           <div class="hero-photo-circle">
             <img
               src="propic.jpeg"
@@ -273,24 +302,158 @@
     </div>
 
     <section id="about">
-      <div class="about-photo-wrap reveal-left">
-        <div class="about-photo-main tilt-card">
-          <img
-            src="caspic.png"
-            alt="Sagar Gupta at work"
-            width="400"
-            height="500"
-            loading="lazy"
-          />
+      <!-- Row 1: photo · hello + bio + education -->
+      <div class="about-row about-row-1">
+        <div class="about-photo-wrap reveal-left">
+          <div class="about-photo-corner"></div>
+          <div class="about-photo-main tilt-card">
+            <img
+              src="caspic.png"
+              alt="Sagar Gupta at work"
+              width="400"
+              height="500"
+              loading="lazy"
+            />
+          </div>
         </div>
-        <div class="about-photo-corner"></div>
 
-        <div class="about-contact-card">
+        <div class="about-intro reveal">
+          <div class="about-hello">
+            <span class="quote-mark">"</span> HELLO<span class="dot">.</span>
+          </div>
+
+          <p class="about-bio">
+            I'm <strong>Sagar Gupta</strong>, a results-driven CS Engineering
+            student (CGPA: 9.18) currently working as a
+            <strong>Web Developer at Flewny</strong>, maintaining production
+            apps built with Node.js, React, Next.js &amp; PHP. I love building
+            real-world solutions that create impact — from scalable full-stack
+            platforms to intelligent AI chatbot systems.<br /><br />
+            I also explore <strong>Prompt Engineering</strong> — crafting precise,
+            effective prompts to unlock the full potential of LLMs.
+            <strong>Hackathon 2nd Place winner</strong> for
+            <em>"The Silent Voice"</em>, a real-time AI recognition system. For
+            me, code is about connecting ideas with people seamlessly.
+          </p>
+
+          <div class="about-block about-block--first">
+            <div class="about-section-title">Education</div>
+            <div class="edu-item">
+              <div class="edu-degree-row">
+                <span class="edu-degree">B.Tech Computer Science Engineering</span>
+                <span class="edu-year">2023 – 2027</span>
+              </div>
+              <div class="edu-school">
+                JIS University, Kolkata — CGPA: 9.18
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-col reveal-right">
+          <div class="about-section-title">Software Skills</div>
+          <div class="skills-row">
+            <div class="skill-chip"><span>JavaScript</span></div>
+            <div class="skill-chip"><span>Python</span></div>
+            <div class="skill-chip"><span>PHP</span></div>
+            <div class="skill-chip"><span>React.js</span></div>
+            <div class="skill-chip"><span>Node.js</span></div>
+            <div class="skill-chip"><span>Express.js</span></div>
+            <div class="skill-chip"><span>MongoDB</span></div>
+            <div class="skill-chip"><span>SCSS</span></div>
+            <div class="skill-chip"><span>Chatbots</span></div>
+            <div class="skill-chip"><span>LLMs & RAG</span></div>
+            <div class="skill-chip"><span>REST API</span></div>
+            <div class="skill-chip"><span>Prompt Eng.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: working experience + currently · let's work together -->
+      <div class="about-row about-row-2">
+        <div class="about-col reveal">
+          <div class="about-section-title">Working Experience</div>
+          <div class="work-grid">
+            <div class="work-item work-item--current">
+              <span class="work-featured-tag">★ Current</span>
+              <div class="work-info">
+                <span class="work-role">Web Developer</span>
+                <span class="work-company">Flewny — Remote</span>
+              </div>
+              <div class="work-period">Jul 2026 – Present</div>
+            </div>
+            <div class="work-item">
+              <div class="work-info">
+                <span class="work-role">Freelance Full-Stack Developer</span>
+                <span class="work-company">The Pixel Forge — Remote</span>
+              </div>
+              <div class="work-period">May 2026 – Jun 2026</div>
+            </div>
+            <div class="work-item">
+              <div class="work-info">
+                <span class="work-role">Full-Stack Developer (Project)</span>
+                <span class="work-company">PolyMind — AI Chat Platform</span>
+              </div>
+              <div class="work-period">2025 – Present</div>
+            </div>
+            <div class="work-item">
+              <div class="work-info">
+                <span class="work-role">Full-Stack Developer (Project)</span>
+                <span class="work-company">GreenSense AI — Environmental Analysis Platform</span>
+              </div>
+              <div class="work-period">Apr 2026 – Present</div>
+            </div>
+          </div>
+
+          <div class="about-block">
+            <div class="about-section-title">Currently</div>
+            <div class="currently-grid">
+              <div class="currently-item">
+                <span class="currently-icon">💼</span>
+                <div>
+                  <div class="currently-label">Working</div>
+                  <div class="currently-val">
+                    Web Developer @ Flewny — Full-time, Remote
+                  </div>
+                </div>
+              </div>
+              <div class="currently-item">
+                <span class="currently-icon">🔨</span>
+                <div>
+                  <div class="currently-label">Building</div>
+                  <div class="currently-val">
+                    GreenSense AI — Computer Vision + NLP
+                  </div>
+                </div>
+              </div>
+              <div class="currently-item">
+                <span class="currently-icon">📚</span>
+                <div>
+                  <div class="currently-label">Learning</div>
+                  <div class="currently-val">
+                    Next.js, Docker, LangChain Agents
+                  </div>
+                </div>
+              </div>
+              <div class="currently-item">
+                <span class="currently-icon">🎯</span>
+                <div>
+                  <div class="currently-label">Open To</div>
+                  <div class="currently-val">
+                    Freelance Projects &amp; Collabs
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-contact-card reveal-right">
           <div class="about-contact-badge">🟢 Available for work</div>
           <div class="about-contact-title">Let's Work Together</div>
           <p class="about-contact-sub">
-            Open to internships, freelance & full-time roles. Drop a message — I
-            respond within 24 hrs.
+            Currently Web Developer @ Flewny. Open to freelance projects &
+            collabs on the side. Drop a message — I respond within 24 hrs.
           </p>
           <div class="about-contact-btns">
             <a
@@ -320,128 +483,6 @@
           </div>
         </div>
       </div>
-
-      <div class="about-right reveal">
-        <div class="about-hello">
-          <span class="quote-mark">"</span> HELLO<span class="dot">.</span>
-        </div>
-
-        <p class="about-bio">
-          I'm <strong>Sagar Gupta</strong>, a results-driven CS Engineering
-          student (CGPA: 9.18) with hands-on experience in full-stack
-          development, AI systems, and conversational agents. I love building
-          real-world solutions that create impact — from scalable social media
-          backends to intelligent chatbot systems.<br /><br />
-          I also explore <strong>Prompt Engineering</strong> — crafting precise,
-          effective prompts to unlock the full potential of LLMs.
-          <strong>Hackathon 2nd Place winner</strong> for
-          <em>"The Silent Voice"</em>, a real-time AI recognition system. For
-          me, code is about connecting ideas with people seamlessly.
-        </p>
-
-        <div class="about-grid">
-          <div>
-            <div class="about-section-title">Education</div>
-            <div class="edu-item">
-              <div>
-                <div class="edu-year">2023<br />–2027</div>
-              </div>
-              <div class="edu-details">
-                <div class="edu-degree">
-                  B.Tech Computer Science Engineering
-                </div>
-                <div class="edu-school">
-                  JIS University, Kolkata — CGPA: 9.18
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div class="about-section-title">Software Skills</div>
-            <div class="skills-row">
-              <div class="skill-chip"><span>JavaScript</span></div>
-              <div class="skill-chip"><span>Python</span></div>
-              <div class="skill-chip"><span>React.js</span></div>
-              <div class="skill-chip"><span>Node.js</span></div>
-              <div class="skill-chip"><span>Express.js</span></div>
-              <div class="skill-chip"><span>MongoDB</span></div>
-              <div class="skill-chip"><span>Chatbots</span></div>
-              <div class="skill-chip"><span>LLMs & RAG</span></div>
-              <div class="skill-chip"><span>REST API</span></div>
-              <div class="skill-chip"><span>Prompt Eng.</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top: 28px">
-          <div class="about-section-title">Working Experience</div>
-          <div class="work-grid">
-            <div class="work-item">
-              <div class="work-role">Full Stack Developer (Project)</div>
-              <div class="work-company">
-                GreenSense AI — Environmental Analysis Platform
-              </div>
-              <div class="work-period">Apr 2026 – Present</div>
-            </div>
-            <div class="work-item">
-              <div class="work-role">Backend Developer (Project)</div>
-              <div class="work-company">InstaClone — Social Media Backend</div>
-              <div class="work-period">2025</div>
-            </div>
-            <div class="work-item">
-              <div class="work-role">AI Chatbot Engineer (Project)</div>
-              <div class="work-company">
-                SupportBot AI — Conversational Agent
-              </div>
-              <div class="work-period">2025</div>
-            </div>
-            <div class="work-item">
-              <div class="work-role">IT &amp; Graphic Design (Freelance)</div>
-              <div class="work-company">Pixel Forge</div>
-              <div class="work-period">2024 – Present</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top: 28px">
-          <div class="about-section-title">Currently</div>
-          <div class="currently-grid">
-            <div class="currently-item">
-              <span class="currently-icon">🔨</span>
-              <div>
-                <div class="currently-label">Building</div>
-                <div class="currently-val">
-                  GreenSense AI — Computer Vision + NLP
-                </div>
-              </div>
-            </div>
-            <div class="currently-item">
-              <span class="currently-icon">📚</span>
-              <div>
-                <div class="currently-label">Learning</div>
-                <div class="currently-val">
-                  Next.js, Docker, LangChain Agents
-                </div>
-              </div>
-            </div>
-            <div class="currently-item">
-              <span class="currently-icon">🎯</span>
-              <div>
-                <div class="currently-label">Seeking</div>
-                <div class="currently-val">
-                  Internships in Full Stack / AI Engineering
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="looking-for-badge reveal">
-          <span class="lf-dot"></span>
-          Available now for remote internships · Full Stack &amp; AI Engineering · Open to Kolkata / West Bengal
-        </div>
-      </div>
     </section>
 
     <div class="section-label-bar">
@@ -462,22 +503,26 @@
       </p>
 
       <div class="services-grid">
-        <div class="service-card reveal tilt-card">
+        <div class="service-card reveal">
           <span class="service-icon">🖥️</span>
           <div class="service-title">Full Stack Development</div>
           <div class="service-desc">
             End-to-end web applications with React.js frontends,
-            Node.js/Express.js backends, and MongoDB databases. Production-ready
-            with JWT auth, REST APIs, and CDN integration.
+            Node.js/Express.js backends, and MongoDB databases — plus the
+            day-to-day work of a production app: creating new UI, optimizing
+            performance, and maintaining live codebases, as I do at Flewny.
           </div>
           <div class="service-tags">
             <span class="service-tag">React</span>
             <span class="service-tag">Node.js</span>
             <span class="service-tag">MongoDB</span>
+            <span class="service-tag">UI Creation</span>
+            <span class="service-tag">Site Optimization</span>
+            <span class="service-tag">Maintenance</span>
           </div>
         </div>
         <div
-          class="service-card reveal tilt-card"
+          class="service-card reveal"
           style="transition-delay: 0.1s"
         >
           <span class="service-icon">🧠</span>
@@ -493,7 +538,7 @@
           </div>
         </div>
         <div
-          class="service-card reveal tilt-card"
+          class="service-card reveal"
           style="transition-delay: 0.2s"
         >
           <span class="service-icon">💬</span>
@@ -700,18 +745,21 @@
           <div class="timeline-card">
             <div class="tl-featured-badge">⭐ Current Chapter</div>
             <span class="timeline-year">2026</span>
-            <div class="timeline-title">MERN Stack · Freelancing · Prompt Engineering</div>
+            <div class="timeline-title">Web Developer @ Flewny · MERN Stack · Prompt Engineering</div>
             <div class="timeline-desc">
-              Levelled up to full MERN stack development. Launched freelance studio
-              <strong style="color:var(--amber)">Pixel Forge</strong>.
-              Won 🥈 Hackathon 2nd Place with <em>"The Silent Voice"</em> — a real-time
-              sign language recognition AI. Currently building
-              <strong style="color:var(--amber)">GreenSense AI</strong> and
-              actively pursuing opportunities in Full Stack & AI Engineering.
+              Levelled up to full MERN stack development. Ran freelance studio
+              <strong style="color:var(--amber)">Pixel Forge</strong>, then joined
+              <strong style="color:var(--amber)">Flewny</strong> in July as a Web
+              Developer — maintaining production apps built with Node.js, React,
+              Next.js &amp; PHP. Won 🥈 Hackathon 2nd Place with
+              <em>"The Silent Voice"</em> — a real-time sign language recognition
+              AI. Currently building
+              <strong style="color:var(--amber)">GreenSense AI</strong> on the
+              side and open to freelance &amp; collab opportunities.
             </div>
             <div class="tl-featured-tags">
+              <span class="tl-featured-tag">Flewny</span>
               <span class="tl-featured-tag">MERN Stack</span>
-              <span class="tl-featured-tag">Freelancing</span>
               <span class="tl-featured-tag">Prompt Engineering</span>
               <span class="tl-featured-tag">AI Systems</span>
             </div>
@@ -762,83 +810,18 @@
         CERTIFICATIONS<span class="dot">.</span>
       </h2>
 
-      <div class="certs-grid">
-        <div class="cert-item reveal" data-cert-img="" data-cert-name="MERN Full Stack Development">
-          <div class="cert-icon">🌐</div>
-          <div>
-            <div class="cert-title">MERN Full Stack Development</div>
-            <div class="cert-org">Workbuds</div>
-          </div>
-          <div class="cert-hover-hint">👆 Hover to preview</div>
-        </div>
-
-        <div class="cert-item reveal" style="transition-delay:0.08s" data-cert-img="" data-cert-name="Cyber Security & Ethical Hacking">
-          <div class="cert-icon">🔐</div>
-          <div>
-            <div class="cert-title">Cyber Security &amp; Ethical Hacking</div>
-            <div class="cert-org">Workbuds</div>
-          </div>
-          <div class="cert-hover-hint">👆 Hover to preview</div>
-        </div>
-
-        <div class="cert-item reveal" style="transition-delay:0.16s" data-cert-img="" data-cert-name="Google for Developers">
-          <div class="cert-icon">🔵</div>
-          <div>
-            <div class="cert-title">Google for Developers</div>
-            <div class="cert-org">EdoSkills / AIM Virtual Internship</div>
-          </div>
-          <div class="cert-hover-hint">👆 Hover to preview</div>
-        </div>
-
-        <div class="cert-item reveal" style="transition-delay:0.24s" data-cert-img="" data-cert-name="Prompt Engineering">
-          <div class="cert-icon">🤖</div>
-          <div>
-            <div class="cert-title">Prompt Engineering</div>
-            <div class="cert-org">B10X</div>
-          </div>
-          <div class="cert-hover-hint">👆 Hover to preview</div>
-        </div>
-
-        <div class="cert-item reveal" style="transition-delay:0.32s" data-cert-img="" data-cert-name="B10X AI Course">
-          <div class="cert-icon">✨</div>
-          <div>
-            <div class="cert-title">B10X AI Certification</div>
-            <div class="cert-org">B10X — 3hr Intensive AI Course</div>
-          </div>
-          <div class="cert-hover-hint">👆 Hover to preview</div>
-        </div>
-
-        <div class="cert-item reveal" style="transition-delay:0.40s" data-cert-img="" data-cert-name="Python Programming">
-          <div class="cert-icon">🐍</div>
-          <div>
-            <div class="cert-title">Python Programming</div>
-            <div class="cert-org">Uphoria GenX</div>
-          </div>
-          <div class="cert-hover-hint">👆 Hover to preview</div>
-        </div>
+      <div class="certs-empty reveal">
+        <span class="certs-empty-icon">🏅</span>
+        <div class="certs-empty-title">Certificate previews coming soon</div>
+        <p class="certs-empty-sub">
+          Currently hold certifications in Full Stack Development (Python),
+          Cyber Security &amp; Ethical Hacking, Java Programming (NPTEL), and
+          Python Programming (Uphoria GenX) — plus Prompt Engineering
+          (InternShala, in progress). Verified images will be added here
+          shortly.
+        </p>
       </div>
     </section>
-
-    <div class="cert-preview-float" id="certPreviewFloat">
-      <div class="cert-preview-placeholder" id="certPreviewPlaceholder">
-        <span>🏅</span>
-        <span>CERTIFICATE PREVIEW</span>
-      </div>
-      <img id="certPreviewImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;object-position:top;" />
-      <div class="cert-preview-label" id="certPreviewLabel">
-        <span id="certPreviewName"></span>
-        <span style="color:var(--amber);font-size:10px;">Hover ↑</span>
-      </div>
-    </div>
-
-    <div class="ui-preview-float" id="uiPreviewFloat">
-      <div class="ui-preview-placeholder" id="uiPreviewPlaceholder">
-        <span>🖼️</span>
-        <span>SCREENSHOT PREVIEW</span>
-      </div>
-      <img id="uiPreviewImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;object-position:top;" />
-      <div class="ui-preview-label" id="uiPreviewLabel"></div>
-    </div>
 
     <div class="section-label-bar">
       <span class="section-label-title">UI Projects</span>
@@ -913,8 +896,9 @@
         LET'S CONNECT<span class="dot">.</span>
       </h2>
       <p class="contact-sub reveal">
-        Open to collaborations, internships, and full-time opportunities. Let's
-        build something great together.
+        Currently building at Flewny. Open to freelance collaborations and
+        full-time opportunities on the side. Let's build something great
+        together.
       </p>
 
       <div class="contact-grid">
@@ -954,6 +938,16 @@
         </div>
 
         <div class="contact-cta-wrap reveal">
+          <div class="contact-status-card">
+            <span class="contact-status-dot"></span>
+            <div>
+              <div class="contact-status-role">Web Developer @ Flewny</div>
+              <div class="contact-status-meta">
+                Remote · Full-time · Since Jul 2026
+              </div>
+            </div>
+          </div>
+
           <a
             href="https://wa.me/917439126630?text=Hi%20Sagar%2C%20I%20saw%20your%20portfolio%20and%20wanted%20to%20connect!"
             target="_blank"
@@ -962,10 +956,10 @@
             <span>💬 Message Me on WhatsApp</span>
           </a>
           <div class="contact-availability">
-            <strong>🟢 Available for work</strong> — Actively seeking
-            internships and full-time roles in Full Stack Development or AI
-            Engineering. Based in Kolkata, India. Open to remote. Response
-            within 24 hours.
+            <strong>🟢 Available for work</strong> — Currently employed
+            full-time at Flewny, and open to freelance projects, collabs, and
+            new full-time opportunities. Based in Kolkata, India. Open to
+            remote. Response within 24 hours.
           </div>
         </div>
       </div>
@@ -974,7 +968,14 @@
     <footer>
       <div class="footer-grid">
         <div class="footer-brand">
-          <h2>SAGAR GUPTA<span class="dot">.</span></h2>
+          <a
+            href="https://wa.me/917439126630?text=Hi%20Sagar%2C%20I%20saw%20your%20portfolio%20and%20wanted%20to%20connect!"
+            target="_blank"
+            class="footer-whatsapp-btn"
+          >
+            <span class="footer-whatsapp-icon">💬</span>
+            <span>Chat on WhatsApp</span>
+          </a>
           <p>
             Building scalable, impact-driven digital experiences. Full Stack
             Developer, AI Prompt Engineer, and Digital Creator based in India.
@@ -1029,11 +1030,16 @@
         </div>
       </div>
 
+      <div class="footer-signature">
+        <span>SAGAR GUPTA<span class="dot">.</span></span>
+      </div>
+
       <div class="footer-bottom">
         <span>© 2026 Sagar Gupta. All Rights Reserved.</span>
         <span>Designed & Engineered with Precision</span>
       </div>
     </footer>
+    </div>
 
     <script src="script.js"></script>
   </body>

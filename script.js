@@ -1,111 +1,59 @@
 /* ═══════════════════════════════════
-   PRELOADER — RANDOMIZED BAR SWEEP
+   ALWAYS START AT THE TOP (HOME)
+   — prevents the browser's automatic
+     scroll restoration from landing
+     mid-page (e.g. in About) on load
+═══════════════════════════════════ */
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+window.scrollTo(0, 0);
+
+/* ═══════════════════════════════════
+   PRELOADER — HORIZONTAL LINE FILL + SPLIT-SCREEN REVEAL
 ═══════════════════════════════════ */
 (function () {
-  const fill = document.getElementById("preloader-fill");
+  const line = document.getElementById("preloader-line");
   const pctText = document.getElementById("preloader-percentage");
-  const statusText = document.getElementById("loader-status");
   const preloader = document.getElementById("preloader");
-
-  /* ── Build bars and attach to BODY (not #preloader)
-        so they survive when preloader bg is hidden    ── */
-  const BAR_COUNT = 40;
-  const bars = [];
-  let cursorTop = 0;
-
-  for (let i = 0; i < BAR_COUNT; i++) {
-    // Variable thickness per bar — some thin, some thick, randomized order
-    const h = 1.6 + Math.random() * 3.6; // vh, ranges roughly 1.6vh–5.2vh
-    if (cursorTop >= 100) break;
-
-    const bar = document.createElement("div");
-    const goRight = Math.random() < 0.5; // fully random direction, not even/odd
-    const w = 100 + Math.random() * 10;
-    const shade = Math.random() < 0.5 ? "#0a0a0a" : "#0d0d0d";
-
-    bar.style.cssText = `
-      position: fixed;
-      top: ${cursorTop.toFixed(4)}vh;
-      left: 0;
-      width: ${w}vw;
-      height: ${(h + 0.15).toFixed(4)}vh;
-      background: ${shade};
-      border-top: ${Math.random() < 0.18 ? "1px solid rgba(245,166,35,0.15)" : "none"};
-      z-index: 9998;
-      will-change: left;
-    `;
-    bar._goRight = goRight;
-    // Randomized, non-uniform timing so the sweep doesn't read as a synchronized wave
-    bar._delay = Math.random() * 420;
-    bar._duration = 0.35 + Math.random() * 0.45;
-
-    document.body.appendChild(bar);
-    bars.push(bar);
-    cursorTop += h;
-  }
-
-  /* ── Loading messages & counter — full-stack dev themed ── */
-  const loadingMessages = [
-    "Booting dev environment",
-    "Spinning up the server",
-    "Resolving dependencies",
-    "Compiling components",
-    "Linting the codebase",
-    "Connecting to database",
-    "Bundling assets",
-    "Optimizing build",
-    "Running final checks",
-    "System ready",
-  ];
+  const siteContent = document.getElementById("site-content");
 
   let progress = 0;
   document.body.style.overflow = "hidden";
+  window.scrollTo(0, 0);
 
   const progressInterval = setInterval(() => {
     progress = Math.min(progress + Math.random() * 4.5 + 1.5, 100);
-    if (fill) fill.style.width = progress + "%";
+    if (line) line.style.width = progress + "%";
     if (pctText) pctText.textContent = String(Math.floor(progress)).padStart(2, "0");
-
-    const msgIndex = Math.min(
-      loadingMessages.length - 1,
-      Math.floor((progress / 100) * (loadingMessages.length - 1))
-    );
-    if (statusText) statusText.textContent = loadingMessages[msgIndex];
 
     if (progress >= 100) {
       clearInterval(progressInterval);
 
-      /* ── Fade counter, hide preloader bg, sweep bars ── */
       setTimeout(() => {
         const content = preloader ? preloader.querySelector(".preloader-content") : null;
         if (content) content.style.opacity = "0";
 
         setTimeout(() => {
-          // Kill the black preloader background — bars are on body so still visible
-          if (preloader) preloader.style.display = "none";
+          // Split the black overlay into two halves that slide apart,
+          // revealing the site underneath.
+          if (preloader) preloader.classList.add("split");
 
-          // Sweep each bar with its own randomized delay/duration/direction —
-          // deliberately non-uniform so it reads as scattered, not a wave.
-          let maxFinish = 0;
-          bars.forEach((bar) => {
-            const delay = bar._delay;
-            const duration = bar._duration;
-            maxFinish = Math.max(maxFinish, delay + duration * 1000);
-            setTimeout(() => {
-              bar.style.transition = `left ${duration}s cubic-bezier(0.76, 0, 0.24, 1)`;
-              bar.style.left = bar._goRight ? "110vw" : "-110vw";
-            }, delay);
-          });
-
-          // Clean up bars + restore scroll after the slowest bar finishes
           setTimeout(() => {
-            bars.forEach((b) => b.remove());
+            if (preloader) preloader.style.display = "none";
+            window.scrollTo(0, 0);
             document.body.style.overflow = "";
+
+            // Reveal the whole site zooming in from slightly-out to full size.
+            if (siteContent) siteContent.classList.add("revealed");
+
             if (typeof startHeroAnimation === "function") startHeroAnimation();
             if (typeof startCounters === "function") startCounters();
-          }, maxFinish + 150);
-        }, 280);
-      }, 350);
+            const heroPhoto = document.querySelector(".hero-photo-wrap");
+            if (heroPhoto) heroPhoto.classList.add("photo-in");
+          }, 900);
+        }, 250);
+      }, 250);
     }
   }, 35);
 })();
@@ -155,6 +103,16 @@ for (let i = 0; i < numTrails + 1; i++) {
   positions.push({ x: mouseX, y: mouseY });
 }
 
+// Trail dot size is constant per-index — set once instead of every
+// animation frame (was causing needless layout work at 60fps).
+for (let i = 1; i <= numTrails; i++) {
+  const trailSize = 38 - i * 5;
+  if (trails[i - 1]) {
+    trails[i - 1].style.width = `${trailSize}px`;
+    trails[i - 1].style.height = `${trailSize}px`;
+  }
+}
+
 window.addEventListener("mousemove", (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
@@ -183,12 +141,9 @@ function animateFluidCursor() {
     positions[i].x += (positions[i - 1].x - positions[i].x) * 0.15;
     positions[i].y += (positions[i - 1].y - positions[i].y) * 0.15;
 
-    const trailSize = 38 - i * 5;
     const opacity = 1 - i * 0.12;
 
     if (trails[i - 1]) {
-      trails[i - 1].style.width = `${trailSize}px`;
-      trails[i - 1].style.height = `${trailSize}px`;
       if (!trails[i - 1].classList.contains("hover-active")) {
         trails[i - 1].style.opacity = opacity;
       }
@@ -529,7 +484,7 @@ if (heroEl) {
   heroEl.addEventListener("mousemove", (e) => {
     if (!tickingDeco) {
       requestAnimationFrame(() => {
-        const rect = e.currentTarget.getBoundingClientRect();
+        const rect = heroEl.getBoundingClientRect();
         const xRatio = (e.clientX - rect.left) / rect.width - 0.5;
         const yRatio = (e.clientY - rect.top) / rect.height - 0.5;
         document.querySelectorAll(".hero-deco").forEach((d, i) => {
