@@ -716,3 +716,21 @@ if (heroEl) {
     if (el) dotObserver.observe(el);
   });
 })();
+
+/* ═══════════════════════════════════
+   SOFTWARE SKILLS — ONE-AT-A-TIME HIGHLIGHT
+   Plain, instant switch (no tweening): exactly one
+   chip is "active" (bigger + amber) at any moment,
+   moving to the next in sequence on a fixed interval.
+═══════════════════════════════════ */
+(function () {
+  const chips = document.querySelectorAll(".skill-chip");
+  if (!chips.length) return;
+  let i = 0;
+  chips[0].classList.add("skill-active");
+  setInterval(() => {
+    chips[i].classList.remove("skill-active");
+    i = (i + 1) % chips.length;
+    chips[i].classList.add("skill-active");
+  }, 900);
+})();

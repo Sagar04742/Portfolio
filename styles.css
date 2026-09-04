@@ -978,30 +978,6 @@ section {
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
 }
-/* A short, sharp spike near the start of each chip's own cycle — combined
-   with delays spaced exactly one slot apart across the full loop duration,
-   only ever ONE chip is enlarged/highlighted at a time, in strict order. */
-@keyframes skillWave {
-  0% {
-    transform: scale(1);
-    background: var(--black);
-    color: var(--white);
-    box-shadow: none;
-  }
-  3% {
-    transform: scale(1.22);
-    background: var(--amber);
-    color: var(--black);
-    box-shadow: 0 8px 22px rgba(245, 166, 35, 0.45);
-  }
-  7%,
-  100% {
-    transform: scale(1);
-    background: var(--black);
-    color: var(--white);
-    box-shadow: none;
-  }
-}
 .skill-chip {
   background: var(--black);
   color: var(--white);
@@ -1010,50 +986,17 @@ section {
   font-size: 11.5px;
   font-weight: 700;
   text-align: center;
-  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: none;
   position: relative;
   overflow: hidden;
-  animation: skillWave 4.8s ease-in-out infinite;
 }
-.skill-chip:nth-child(1) {
-  animation-delay: 0s;
-}
-.skill-chip:nth-child(2) {
-  animation-delay: 0.4s;
-}
-.skill-chip:nth-child(3) {
-  animation-delay: 0.8s;
-}
-.skill-chip:nth-child(4) {
-  animation-delay: 1.2s;
-}
-.skill-chip:nth-child(5) {
-  animation-delay: 1.6s;
-}
-.skill-chip:nth-child(6) {
-  animation-delay: 2s;
-}
-.skill-chip:nth-child(7) {
-  animation-delay: 2.4s;
-}
-.skill-chip:nth-child(8) {
-  animation-delay: 2.8s;
-}
-.skill-chip:nth-child(9) {
-  animation-delay: 3.2s;
-}
-.skill-chip:nth-child(10) {
-  animation-delay: 3.6s;
-}
-.skill-chip:nth-child(11) {
-  animation-delay: 4s;
-}
-.skill-chip:nth-child(12) {
-  animation-delay: 4.4s;
-}
-.skill-chip:hover {
-  animation: none;
+/* Exactly one chip at a time is switched to this state by script.js —
+   a plain, instant swap (no easing/tweening), fixed size otherwise. */
+.skill-chip.skill-active {
+  background: var(--amber);
+  color: var(--black);
+  transform: scale(1.15);
+  box-shadow: 0 8px 20px rgba(245, 166, 35, 0.4);
 }
 .skill-chip::after {
   content: "";
@@ -1218,29 +1161,6 @@ section {
 .service-card > * {
   position: relative;
   z-index: 1;
-}
-/* Yellow → brown progression across the three cards */
-.services-grid .service-card:nth-child(2)::before {
-  background: #cc8a2e;
-}
-.services-grid .service-card:nth-child(3)::before {
-  background: #8a5a2b;
-}
-.services-grid .service-card:nth-child(2):hover {
-  box-shadow: 0 30px 60px rgba(204, 138, 46, 0.3);
-  border-color: #cc8a2e;
-}
-.services-grid .service-card:nth-child(3):hover {
-  box-shadow: 0 30px 60px rgba(138, 90, 43, 0.35);
-  border-color: #8a5a2b;
-}
-.services-grid .service-card:nth-child(2):hover .service-desc,
-.services-grid .service-card:nth-child(3):hover .service-desc {
-  color: rgba(255, 255, 255, 0.85);
-}
-.services-grid .service-card:nth-child(2):hover .service-title,
-.services-grid .service-card:nth-child(3):hover .service-title {
-  color: var(--white);
 }
 .service-card:hover {
   box-shadow: 0 30px 60px rgba(245, 166, 35, 0.25);
